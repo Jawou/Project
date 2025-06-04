@@ -179,7 +179,7 @@ class Object {
         Vector3 RelativeVertices[99]; //store in relation to the object
         CFrame AbsoluteVertices[99]; //store in relation to the object
         Vector3 RelTriangles[99][3];
-        Vector3 AbsTriangles[99][3];
+        CFrame AbsTriangles[99][3];
 };
 
 class Cube : public Object {
