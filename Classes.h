@@ -178,7 +178,8 @@ class Object {
         CFrame Position = CFrame(0, 0, 0);
         Vector3 RelativeVertices[99]; //store in relation to the object
         CFrame AbsoluteVertices[99]; //store in relation to the object
-        Vector3 Triangles[99][3];
+        Vector3 RelTriangles[99][3];
+        Vector3 AbsTriangles[99][3];
 };
 
 class Cube : public Object {
@@ -196,54 +197,105 @@ class Cube : public Object {
             
             CreateAbsVert();
         }
-        void CreateTriangles(){
-            Triangles[0][0] = RelativeVertices[0];
-            Triangles[0][1] = RelativeVertices[2];
-            Triangles[0][2] = RelativeVertices[4];
+        void CreateRelTriangles(){
+            RelTriangles[0][0] = RelativeVertices[0];
+            RelTriangles[0][1] = RelativeVertices[2];
+            RelTriangles[0][2] = RelativeVertices[4];
 
-            Triangles[1][0] = RelativeVertices[4];
-            Triangles[1][1] = RelativeVertices[2];
-            Triangles[1][2] = RelativeVertices[6];
+            RelTriangles[1][0] = RelativeVertices[4];
+            RelTriangles[1][1] = RelativeVertices[2];
+            RelTriangles[1][2] = RelativeVertices[6];
 
-            Triangles[2][0] = RelativeVertices[1];
-            Triangles[2][1] = RelativeVertices[5];
-            Triangles[2][2] = RelativeVertices[3];
+            RelTriangles[2][0] = RelativeVertices[1];
+            RelTriangles[2][1] = RelativeVertices[5];
+            RelTriangles[2][2] = RelativeVertices[3];
 
-            Triangles[3][0] = RelativeVertices[3];
-            Triangles[3][1] = RelativeVertices[5];
-            Triangles[3][2] = RelativeVertices[7];
+            RelTriangles[3][0] = RelativeVertices[3];
+            RelTriangles[3][1] = RelativeVertices[5];
+            RelTriangles[3][2] = RelativeVertices[7];
 
-            Triangles[4][0] = RelativeVertices[0];
-            Triangles[4][1] = RelativeVertices[4];
-            Triangles[4][2] = RelativeVertices[1];
+            RelTriangles[4][0] = RelativeVertices[0];
+            RelTriangles[4][1] = RelativeVertices[4];
+            RelTriangles[4][2] = RelativeVertices[1];
 
-            Triangles[5][0] = RelativeVertices[1];
-            Triangles[5][1] = RelativeVertices[4];
-            Triangles[5][2] = RelativeVertices[5];
+            RelTriangles[5][0] = RelativeVertices[1];
+            RelTriangles[5][1] = RelativeVertices[4];
+            RelTriangles[5][2] = RelativeVertices[5];
 
-            Triangles[6][0] = RelativeVertices[2];
-            Triangles[6][1] = RelativeVertices[3];
-            Triangles[6][2] = RelativeVertices[6];
+            RelTriangles[6][0] = RelativeVertices[2];
+            RelTriangles[6][1] = RelativeVertices[3];
+            RelTriangles[6][2] = RelativeVertices[6];
 
-            Triangles[7][0] = RelativeVertices[6];
-            Triangles[7][1] = RelativeVertices[3];
-            Triangles[7][2] = RelativeVertices[7];
+            RelTriangles[7][0] = RelativeVertices[6];
+            RelTriangles[7][1] = RelativeVertices[3];
+            RelTriangles[7][2] = RelativeVertices[7];
 
-            Triangles[8][0] = RelativeVertices[0];
-            Triangles[8][1] = RelativeVertices[1];
-            Triangles[8][2] = RelativeVertices[2];
+            RelTriangles[8][0] = RelativeVertices[0];
+            RelTriangles[8][1] = RelativeVertices[1];
+            RelTriangles[8][2] = RelativeVertices[2];
 
-            Triangles[9][0] = RelativeVertices[2];
-            Triangles[9][1] = RelativeVertices[1];
-            Triangles[9][2] = RelativeVertices[3];
+            RelTriangles[9][0] = RelativeVertices[2];
+            RelTriangles[9][1] = RelativeVertices[1];
+            RelTriangles[9][2] = RelativeVertices[3];
 
-            Triangles[10][0] = RelativeVertices[4];
-            Triangles[10][1] = RelativeVertices[6];
-            Triangles[10][2] = RelativeVertices[5];
+            RelTriangles[10][0] = RelativeVertices[4];
+            RelTriangles[10][1] = RelativeVertices[6];
+            RelTriangles[10][2] = RelativeVertices[5];
 
-            Triangles[11][0] = RelativeVertices[5];
-            Triangles[11][1] = RelativeVertices[6];
-            Triangles[11][2] = RelativeVertices[7];
+            RelTriangles[11][0] = RelativeVertices[5];
+            RelTriangles[11][1] = RelativeVertices[6];
+            RelTriangles[11][2] = RelativeVertices[7];
+
+
+        }
+        void CreateAbsTriangles() {
+            AbsTriangles[0][0] = AbsoluteVertices[0];
+            AbsTriangles[0][1] = AbsoluteVertices[2];
+            AbsTriangles[0][2] = AbsoluteVertices[4];
+
+            AbsTriangles[1][0] = AbsoluteVertices[4];
+            AbsTriangles[1][1] = AbsoluteVertices[2];
+            AbsTriangles[1][2] = AbsoluteVertices[6];
+
+            AbsTriangles[2][0] = AbsoluteVertices[1];
+            AbsTriangles[2][1] = AbsoluteVertices[5];
+            AbsTriangles[2][2] = AbsoluteVertices[3];
+
+            AbsTriangles[3][0] = AbsoluteVertices[3];
+            AbsTriangles[3][1] = AbsoluteVertices[5];
+            AbsTriangles[3][2] = AbsoluteVertices[7];
+
+            AbsTriangles[4][0] = AbsoluteVertices[0];
+            AbsTriangles[4][1] = AbsoluteVertices[4];
+            AbsTriangles[4][2] = AbsoluteVertices[1];
+
+            AbsTriangles[5][0] = AbsoluteVertices[1];
+            AbsTriangles[5][1] = AbsoluteVertices[4];
+            AbsTriangles[5][2] = AbsoluteVertices[5];
+
+            AbsTriangles[6][0] = AbsoluteVertices[2];
+            AbsTriangles[6][1] = AbsoluteVertices[3];
+            AbsTriangles[6][2] = AbsoluteVertices[6];
+
+            AbsTriangles[7][0] = AbsoluteVertices[6];
+            AbsTriangles[7][1] = AbsoluteVertices[3];
+            AbsTriangles[7][2] = AbsoluteVertices[7];
+
+            AbsTriangles[8][0] = AbsoluteVertices[0];
+            AbsTriangles[8][1] = AbsoluteVertices[1];
+            AbsTriangles[8][2] = AbsoluteVertices[2];
+
+            AbsTriangles[9][0] = AbsoluteVertices[2];
+            AbsTriangles[9][1] = AbsoluteVertices[1];
+            AbsTriangles[9][2] = AbsoluteVertices[3];
+
+            AbsTriangles[10][0] = AbsoluteVertices[4];
+            AbsTriangles[10][1] = AbsoluteVertices[6];
+            AbsTriangles[10][2] = AbsoluteVertices[5];
+
+            AbsTriangles[11][0] = AbsoluteVertices[5];
+            AbsTriangles[11][1] = AbsoluteVertices[6];
+            AbsTriangles[11][2] = AbsoluteVertices[7];
 
 
         }
