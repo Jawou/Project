@@ -3,6 +3,7 @@
 #include<GLFW/glfw3.h>
 #include <iostream>
 #include "Classes.h"
+#include "Functions.h"
 
 
 void DisplayCube(Cube Test) {
@@ -14,26 +15,25 @@ void DisplayCube(Cube Test) {
     }
 }
 
+void DisplayMatrix(Cube Test) {
+    for (int i = 0; i < 3; i++)
+    {
+        printf("%f,%f,%f\n", Test.Position.RotationMatrix[i][0], Test.Position.RotationMatrix[i][1], Test.Position.RotationMatrix[i][2]);
+    }
+}   
+
 int main()
 {
-    Cube Floor;
-    Floor.Color = Color3(0, 0, 0);
-    Floor.Size = Vector3(40, 40, 1);
-    Floor.Position = CFrame(0, 0, 0);
+    Cube Test;
+    Test.Color = Color3(0, 0, 0);
+    Test.Size = Vector3(100000, 100000, 100000);
+    Test.Position = CFrame(0, 0, 0);
+    Test.Position.Alpha = 125;
+    Test.Position.Beta = 12;
+    Test.Position.UpdateMatrix();
 
-    Cube Trunk;
-    Trunk.Color = Color3(0, 0, 0);
-    Trunk.Size = Vector3(4, 4, 20);
-    Trunk.Position = CFrame(0, 0, 10);
 
-    Cube Leaves;
-    Leaves.Color = Color3(0, 0, 0);
-    Leaves.Size = Vector3(10, 10, 10);
-    Leaves.Position = CFrame(0, 0, 25);
+    DisplayCube(Test);
 
-    Leaves.Position.AddPos(Vector3(150, 1, 1));
-    DisplayCube(Floor);
-    DisplayCube(Trunk);
-    DisplayCube(Leaves);
     return 0;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <math.h>
 #include<algorithm>
+#include "Functions.h"
+
 
 class Vector3
 {
@@ -194,8 +196,17 @@ class Cube : public Object {
             this->RelativeVertices[6] = Vector3(-Size.X / 2, -Size.Y / 2, Size.Z / 2);//--+
             this->RelativeVertices[7] = Vector3(-Size.X / 2, -Size.Y / 2, -Size.Z / 2);//---
             
-            
+            ApplyRotation();
             CreateAbsVert();
+        }
+        void ApplyRotation() {
+            for (int i = 0; i < 8; i++) {
+                double Small[3] = {RelativeVertices[i].X,RelativeVertices[i].Y,RelativeVertices[i].Z};
+                MultMatrix(Small, Position.RotationMatrix);
+                RelativeVertices[i].X = Small[0];
+                RelativeVertices[i].Y = Small[1];
+                RelativeVertices[i].Z = Small[2];
+            }
         }
         void CreateRelTriangles(){
             RelTriangles[0][0] = RelativeVertices[0];
@@ -306,9 +317,6 @@ class Cube : public Object {
                 this->AbsoluteVertices[i] = NewFrame;
             };
         }
-
-        void ApplyRotation() {
-
-        }
+        
 };
 
