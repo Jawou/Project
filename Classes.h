@@ -65,9 +65,9 @@ public:
     //Vector 
     Vector3 Vector;
     //Euler Angles
-    double Alpha;
-    double Beta;
-    double Gamma;
+    double Alpha = 0;
+    double Beta = 0;
+    double Gamma = 0;
     // Rotation Matrix
     double RotationMatrix[3][3];
     //Deafult Constructor
