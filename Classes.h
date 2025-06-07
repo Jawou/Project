@@ -7,10 +7,10 @@
 class Vector3
 {
 public:
-    double X;
-    double Y;
-    double Z;
-    double Magnitude;
+    double X = 0;
+    double Y = 0;
+    double Z = 0;
+    double Magnitude = 0;
 
     void Add(Vector3 NewVector)
     {   
@@ -61,7 +61,7 @@ public:
 class CFrame {
 public:
     //Postion
-    double X, Y, Z;
+    double X = 0, Y = 0, Z = 0;
     //Vector 
     Vector3 Vector;
     //Euler Angles
@@ -69,7 +69,7 @@ public:
     double Beta = 0;
     double Gamma = 0;
     // Rotation Matrix
-    double RotationMatrix[3][3];
+    double RotationMatrix[3][3] = { 0 };
     //Deafult Constructor
     CFrame() {
         UpdateAll();
@@ -182,10 +182,33 @@ class Object {
         CFrame AbsoluteVertices[99]; //store in relation to the object
         Vector3 RelTriangles[99][3];
         CFrame AbsTriangles[99][3];
+        int NumberOfVerticies = 0;
+
+        void ApplyRotation() {
+            for (int i = 0; i < NumberOfVerticies; i++) {
+                double Small[3] = { RelativeVertices[i].X,RelativeVertices[i].Y,RelativeVertices[i].Z };
+                MultMatrix(Small, Position.RotationMatrix);
+                RelativeVertices[i].X = Small[0];
+                RelativeVertices[i].Y = Small[1];
+                RelativeVertices[i].Z = Small[2];
+            }
+        }
+
+        void CreateAbsVert() {
+            for (int i = 0; i < NumberOfVerticies; i++) {
+                CFrame NewFrame(Position);
+                NewFrame.AddPos(RelativeVertices[i]);
+                this->AbsoluteVertices[i] = NewFrame;
+            };
+        }
 };
 
 class Cube : public Object {
     public:
+        Cube(){
+            NumberOfVerticies = 8;
+        }
+
         void CreateRelVert(){
             this->RelativeVertices[0] = Vector3(Size.X / 2,Size.Y/2, Size.Z / 2); //+++
             this->RelativeVertices[1] = Vector3(Size.X / 2, Size.Y / 2, -Size.Z / 2);//++-
@@ -199,15 +222,7 @@ class Cube : public Object {
             ApplyRotation();
             CreateAbsVert();
         }
-        void ApplyRotation() {
-            for (int i = 0; i < 8; i++) {
-                double Small[3] = {RelativeVertices[i].X,RelativeVertices[i].Y,RelativeVertices[i].Z};
-                MultMatrix(Small, Position.RotationMatrix);
-                RelativeVertices[i].X = Small[0];
-                RelativeVertices[i].Y = Small[1];
-                RelativeVertices[i].Z = Small[2];
-            }
-        }
+        
         void CreateRelTriangles(){
             RelTriangles[0][0] = RelativeVertices[0];
             RelTriangles[0][1] = RelativeVertices[2];
@@ -259,6 +274,7 @@ class Cube : public Object {
 
 
         }
+        
         void CreateAbsTriangles() {
             AbsTriangles[0][0] = AbsoluteVertices[0];
             AbsTriangles[0][1] = AbsoluteVertices[2];
@@ -310,13 +326,7 @@ class Cube : public Object {
 
 
         }
-        void CreateAbsVert() {
-            for (int i = 0; i < 8; i++){
-                CFrame NewFrame(Position);
-                NewFrame.AddPos(RelativeVertices[i]);
-                this->AbsoluteVertices[i] = NewFrame;
-            };
-        }
+        
         
 };
 
