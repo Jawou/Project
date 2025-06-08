@@ -183,6 +183,7 @@ class Object {
         Vector3 RelTriangles[99][3];
         CFrame AbsTriangles[99][3];
         int NumberOfVerticies = 0;
+        int NumberOfTriangles = 0;
 
         void ApplyRotation() {
             for (int i = 0; i < NumberOfVerticies; i++) {
@@ -207,6 +208,7 @@ class Cube : public Object {
     public:
         Cube(){
             NumberOfVerticies = 8;
+            NumberOfTriangles = 12;
         }
 
         void CreateRelVert(){
@@ -328,5 +330,86 @@ class Cube : public Object {
         }
         
         
+};
+
+class Pyramid : public Object {
+public:
+    Pyramid() {
+        NumberOfVerticies = 5;
+        NumberOfTriangles = 6;
+    }
+
+    void CreateRelVert() {
+        this->RelativeVertices[0] = Vector3(Size.X / 2, -Size.Y / 2, Size.Z / 2); 
+        this->RelativeVertices[1] = Vector3(Size.X / 2, -Size.Y / 2, -Size.Z / 2);
+        this->RelativeVertices[2] = Vector3(-Size.X / 2, -Size.Y / 2, Size.Z / 2);
+        this->RelativeVertices[3] = Vector3(-Size.X / 2, -Size.Y / 2, -Size.Z / 2);
+
+        //Top
+        this->RelativeVertices[4] = Vector3(0, Size.Y / 2, 0);
+
+        ApplyRotation();
+        CreateAbsVert();
+    }
+
+    void CreateRelTriangles() {
+        //Bottom
+        RelTriangles[0][0] = RelativeVertices[0];
+        RelTriangles[0][1] = RelativeVertices[1];
+        RelTriangles[0][2] = RelativeVertices[3];
+
+        RelTriangles[1][0] = RelativeVertices[0];
+        RelTriangles[1][1] = RelativeVertices[2];
+        RelTriangles[1][2] = RelativeVertices[3];
+        
+        //Sides
+        RelTriangles[2][0] = RelativeVertices[0];
+        RelTriangles[2][1] = RelativeVertices[4];
+        RelTriangles[2][2] = RelativeVertices[1];
+
+        RelTriangles[3][0] = RelativeVertices[0];
+        RelTriangles[3][1] = RelativeVertices[4];
+        RelTriangles[3][2] = RelativeVertices[2];
+
+        RelTriangles[4][0] = RelativeVertices[3];
+        RelTriangles[4][1] = RelativeVertices[4];
+        RelTriangles[4][2] = RelativeVertices[1];
+
+        RelTriangles[5][0] = RelativeVertices[3];
+        RelTriangles[5][1] = RelativeVertices[4];
+        RelTriangles[5][2] = RelativeVertices[2];
+
+    }
+
+    void CreateAbsTriangles() {
+        //Bottom
+        AbsTriangles[0][0] = AbsoluteVertices[0];
+        AbsTriangles[0][1] = AbsoluteVertices[1];
+        AbsTriangles[0][2] = AbsoluteVertices[3];
+
+        AbsTriangles[1][0] = AbsoluteVertices[0];
+        AbsTriangles[1][1] = AbsoluteVertices[2];
+        AbsTriangles[1][2] = AbsoluteVertices[3];
+
+        //Sides
+        AbsTriangles[2][0] = AbsoluteVertices[0];
+        AbsTriangles[2][1] = AbsoluteVertices[4];
+        AbsTriangles[2][2] = AbsoluteVertices[1];
+
+        AbsTriangles[3][0] = AbsoluteVertices[0];
+        AbsTriangles[3][1] = AbsoluteVertices[4];
+        AbsTriangles[3][2] = AbsoluteVertices[2];
+
+        AbsTriangles[4][0] = AbsoluteVertices[3];
+        AbsTriangles[4][1] = AbsoluteVertices[4];
+        AbsTriangles[4][2] = AbsoluteVertices[1];
+
+        AbsTriangles[5][0] = AbsoluteVertices[3];
+        AbsTriangles[5][1] = AbsoluteVertices[4];
+        AbsTriangles[5][2] = AbsoluteVertices[2];
+
+    }
+
+
 };
 

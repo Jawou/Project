@@ -10,11 +10,13 @@
 
 int main()
 {
-    Cube Test;
+    Pyramid Test;
     Test.Color = Color3(0, 0, 0);
     Test.Size = Vector3(10, 10, 10);
+    Test.Position.Beta = DegreeToRadian(-90);
+
     Test.Position.UpdateMatrix();
-    DisplayCube(Test);
+    DisplayPyramid(Test);
 
     return 0;
 }
