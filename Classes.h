@@ -202,6 +202,10 @@ class Object {
                 this->AbsoluteVertices[i] = NewFrame;
             };
         }
+
+        virtual void CreateRelVert() = 0;
+        virtual void CreateRelTriangles() = 0;
+        virtual void CreateAbsTriangles() = 0;
 };
 
 class Cube : public Object {
@@ -211,7 +215,7 @@ class Cube : public Object {
             NumberOfTriangles = 12;
         }
 
-        void CreateRelVert(){
+        void CreateRelVert()override {
             this->RelativeVertices[0] = Vector3(Size.X / 2,Size.Y/2, Size.Z / 2); //+++
             this->RelativeVertices[1] = Vector3(Size.X / 2, Size.Y / 2, -Size.Z / 2);//++-
             this->RelativeVertices[2] = Vector3(Size.X / 2, -Size.Y / 2, Size.Z / 2);//+-+
@@ -225,7 +229,7 @@ class Cube : public Object {
             CreateAbsVert();
         }
         
-        void CreateRelTriangles(){
+        void CreateRelTriangles()override {
             RelTriangles[0][0] = RelativeVertices[0];
             RelTriangles[0][1] = RelativeVertices[2];
             RelTriangles[0][2] = RelativeVertices[4];
@@ -277,7 +281,7 @@ class Cube : public Object {
 
         }
         
-        void CreateAbsTriangles() {
+        void CreateAbsTriangles()override {
             AbsTriangles[0][0] = AbsoluteVertices[0];
             AbsTriangles[0][1] = AbsoluteVertices[2];
             AbsTriangles[0][2] = AbsoluteVertices[4];
@@ -339,7 +343,7 @@ public:
         NumberOfTriangles = 6;
     }
 
-    void CreateRelVert() {
+    void CreateRelVert() override {
         this->RelativeVertices[0] = Vector3(Size.X / 2, -Size.Y / 2, Size.Z / 2); 
         this->RelativeVertices[1] = Vector3(Size.X / 2, -Size.Y / 2, -Size.Z / 2);
         this->RelativeVertices[2] = Vector3(-Size.X / 2, -Size.Y / 2, Size.Z / 2);
@@ -352,7 +356,7 @@ public:
         CreateAbsVert();
     }
 
-    void CreateRelTriangles() {
+    void CreateRelTriangles()override {
         //Bottom
         RelTriangles[0][0] = RelativeVertices[0];
         RelTriangles[0][1] = RelativeVertices[1];
@@ -381,7 +385,7 @@ public:
 
     }
 
-    void CreateAbsTriangles() {
+    void CreateAbsTriangles()override {
         //Bottom
         AbsTriangles[0][0] = AbsoluteVertices[0];
         AbsTriangles[0][1] = AbsoluteVertices[1];
