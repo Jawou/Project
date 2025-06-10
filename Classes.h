@@ -178,10 +178,12 @@ class Object {
         Color3 Color = Color3(255, 255, 255);
         Vector3 Size = Vector3(5, 5, 5);
         CFrame Position = CFrame(0, 0, 0);
-        Vector3 RelativeVertices[99]; //store in relation to the object
-        CFrame AbsoluteVertices[99]; //store in relation to the object
+        Vector3 RelativeVertices[99]; //stored in relation to the object
         Vector3 RelTriangles[99][3];
+
+        CFrame AbsoluteVertices[99]; //stored compared to the world orign / CFrame
         CFrame AbsTriangles[99][3];
+
         int NumberOfVerticies = 0;
         int NumberOfTriangles = 0;
 
