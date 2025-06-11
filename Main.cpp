@@ -9,14 +9,19 @@
 #include "Debug.h"
 
 int main()
-{
-    Pyramid Test;
-    Test.Color = Color3(0, 0, 0);
-    Test.Size = Vector3(10, 10, 10);
-    Test.Position.Beta = DegreeToRadian(-90);
+{   
+    Object* AllObjects[255] = { nullptr };
+   
 
-    Test.Position.UpdateMatrix();
-    DisplayPyramid(Test);
+    Pyramid* Test = new Pyramid();
+    Test->Color = Color3(0, 0, 0);
+    Test->Size = Vector3(10, 10, 10);
+    Test->Position.Beta = DegreeToRadian(-90);
+    Test->Position.UpdateMatrix();
+    AllObjects[0] = Test;
+
+    
+    DisplayPyramid(*(Pyramid*)AllObjects[0]);
 
     return 0;
 }
