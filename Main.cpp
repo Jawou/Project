@@ -7,21 +7,24 @@
 #include "Classes.h"
 #include "Functions.h"
 #include "Debug.h"
+#include"Storage.h"
 
 int main()
 {   
-    Object* AllObjects[255] = { nullptr };
-   
+    Cube Test;
+    Test.Color = Color3(0, 0, 0);
+    Test.Size = Vector3(10, 10, 10);
+    Test.Position.Beta = DegreeToRadian(-90);
+    Test.Position.UpdateMatrix();
+    CloneCube(Test);
+    Cube* NewCube = CloneCube(Test);
+    NewCube->Position.AddPos(Vector3(0, 10, 0));
+    NewCube->Position.UpdateMatrix();
 
-    Pyramid* Test = new Pyramid();
-    Test->Color = Color3(0, 0, 0);
-    Test->Size = Vector3(10, 10, 10);
-    Test->Position.Beta = DegreeToRadian(-90);
-    Test->Position.UpdateMatrix();
-    AllObjects[0] = Test;
+    DisplayCube(*(Cube*)Storage[0]);
+    DisplayCube(*(Cube*)Storage[1]);
 
-    
-    DisplayPyramid(*(Pyramid*)AllObjects[0]);
+    NewCube->DeleteObject(Storage);
 
     return 0;
 }

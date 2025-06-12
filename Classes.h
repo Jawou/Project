@@ -168,9 +168,6 @@ public:
         this->Blue = B;
     }
 };
-
-
-
 class Object {
     public:
         char Name[100] = "Object"; //Max 99 characters due to the null at the end of a char array
@@ -180,6 +177,8 @@ class Object {
         CFrame Position = CFrame(0, 0, 0);
         Vector3 RelativeVertices[99]; //stored in relation to the object
         Vector3 RelTriangles[99][3];
+
+        int PosInStorage = 0;
 
         CFrame AbsoluteVertices[99]; //stored compared to the world orign / CFrame
         CFrame AbsTriangles[99][3];
@@ -204,6 +203,11 @@ class Object {
                 this->AbsoluteVertices[i] = NewFrame;
             };
         }
+
+        void DeleteObject(Object*(&Storage)[255]) {
+            Storage[PosInStorage] = nullptr;
+            delete this;
+        };
 
         virtual void CreateRelVert() = 0;
         virtual void CreateRelTriangles() = 0;

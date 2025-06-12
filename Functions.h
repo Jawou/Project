@@ -15,3 +15,4 @@ double DegreeToRadian(double Degree) {
     double pi = 2 * acos(0.0);
     return Degree * pi / 180;
 }
+
