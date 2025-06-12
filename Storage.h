@@ -22,4 +22,14 @@ Cube* CloneCube(Cube ToClone) {
 	Store(CubePointer);
 	return CubePointer;
 }
+Pyramid* CreatePyramid(char Name[99]) {
+	Pyramid* PyramidPointer = new(Pyramid);
+	Store(PyramidPointer);
+	return PyramidPointer;
+}
+Pyramid* ClonePyramid(Pyramid ToClone) {
+	Pyramid* PyramidPointer = new Pyramid(ToClone);
+	Store(PyramidPointer);
+	return PyramidPointer;
+}
 
