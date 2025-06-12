@@ -222,7 +222,7 @@ class Cube : public Object {
         }
 
         void CreateRelVert()override {
-            this->RelativeVertices[0] = Vector3(Size.X / 2,Size.Y/2, Size.Z / 2); //+++
+            this->RelativeVertices[0] = Vector3(Size.X / 2,Size.Y / 2, Size.Z / 2); //+++
             this->RelativeVertices[1] = Vector3(Size.X / 2, Size.Y / 2, -Size.Z / 2);//++-
             this->RelativeVertices[2] = Vector3(Size.X / 2, -Size.Y / 2, Size.Z / 2);//+-+
             this->RelativeVertices[3] = Vector3(Size.X / 2, -Size.Y / 2, -Size.Z / 2);//+--
@@ -341,7 +341,6 @@ class Cube : public Object {
         
         
 };
-
 class Pyramid : public Object {
 public:
     Pyramid() {

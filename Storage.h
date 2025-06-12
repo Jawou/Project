@@ -4,21 +4,22 @@
 const int Amount = 255;
 int end = 0;
 
-
 Object* Storage[Amount] = { nullptr };
+
+void Store(Object* ToStore) {
+	Storage[end] = ToStore;
+	ToStore->PosInStorage = end;
+	end += 1;
+}
 
 Cube* CreateCube(char Name[99]) {
 	Cube* CubePointer = new(Cube);
-	Storage[end] = CubePointer;
-	CubePointer->PosInStorage = end;
-	end += 1;
+	Store(CubePointer);
 	return CubePointer;
 }
 Cube* CloneCube(Cube ToClone) {
 	Cube* CubePointer = new Cube(ToClone);
-	Storage[end] = CubePointer;
-	CubePointer->PosInStorage = end;
-	end += 1;
+	Store(CubePointer);
 	return CubePointer;
 }
 

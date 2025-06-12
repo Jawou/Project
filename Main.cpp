@@ -16,15 +16,7 @@ int main()
     Test.Size = Vector3(10, 10, 10);
     Test.Position.Beta = DegreeToRadian(-90);
     Test.Position.UpdateMatrix();
-    CloneCube(Test);
-    Cube* NewCube = CloneCube(Test);
-    NewCube->Position.AddPos(Vector3(0, 10, 0));
-    NewCube->Position.UpdateMatrix();
-
-    DisplayCube(*(Cube*)Storage[0]);
-    DisplayCube(*(Cube*)Storage[1]);
-
-    NewCube->DeleteObject(Storage);
-
+    
+    DesmosDisplay(Test);
     return 0;
 }

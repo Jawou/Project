@@ -5,15 +5,7 @@
 #include"Classes.h"
 #include"Functions.h"
 //Outputs the cube for desmos to render
-void DisplayCube(Cube Test) {
-    Test.CreateRelVert();
-    Test.CreateAbsTriangles();
-    for (int i = 0; i < Test.NumberOfTriangles; i++)
-    {
-        printf("triangle((%f,%f,%f),(%f,%f,%f),(%f,%f,%f))\n", Test.AbsTriangles[i][0].X, Test.AbsTriangles[i][0].Y, Test.AbsTriangles[i][0].Z, Test.AbsTriangles[i][1].X, Test.AbsTriangles[i][1].Y, Test.AbsTriangles[i][1].Z, Test.AbsTriangles[i][2].X, Test.AbsTriangles[i][2].Y, Test.AbsTriangles[i][2].Z);
-    }
-}
-void DisplayPyramid(Pyramid Test) {
+void DesmosDisplay(Object& Test) {
     Test.CreateRelVert();
     Test.CreateAbsTriangles();
     for (int i = 0; i < Test.NumberOfTriangles; i++)
