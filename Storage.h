@@ -6,6 +6,8 @@ int end = 0;
 
 Object* Storage[Amount] = { nullptr };
 
+
+
 void Store(Object* ToStore) {
 	Storage[end] = ToStore;
 	ToStore->PosInStorage = end;

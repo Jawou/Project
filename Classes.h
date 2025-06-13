@@ -178,8 +178,12 @@ class Object {
         Vector3 RelativeVertices[99]; //stored in relation to the object
         Vector3 RelTriangles[99][3];
 
-        int PosInStorage = 0;
 
+        Chunk* ChunkPtr = nullptr;
+        int ChunkPos = NULL;
+        
+
+        int PosInStorage = 0;
         CFrame AbsoluteVertices[99]; //stored compared to the world orign / CFrame
         CFrame AbsTriangles[99][3];
 
@@ -422,3 +426,18 @@ public:
 
 };
 
+
+class Chunk {
+public:
+    CFrame Location;
+    Object* ChunkStorage[Amount] = { nullptr };
+    int End = 0;
+    int Size = 10;
+
+    void AddToChunk(Object* ToStore) {
+        Storage[end] = ToStore;
+        ToStore->PosInStorage = end;
+        ToStore->ChunkPtr = this;
+        End += 1;
+    }
+};
