@@ -16,3 +16,7 @@ double DegreeToRadian(double Degree) {
     return Degree * pi / 180;
 }
 
+int StringToInt(char Name[99]) {
+    printf("%d", Name[51]);
+    return 0;
+};

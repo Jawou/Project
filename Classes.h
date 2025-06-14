@@ -3,6 +3,9 @@
 #include<algorithm>
 #include "Functions.h"
 
+//Forward
+class Chunk;
+
 
 class Vector3
 {
@@ -180,7 +183,7 @@ class Object {
 
 
         Chunk* ChunkPtr = nullptr;
-        int ChunkPos = NULL;
+        int ChunkPos = -1;
         
 
         int PosInStorage = 0;
@@ -427,6 +430,50 @@ public:
 };
 
 
+
+
+
+
+
+
+
+//Storage Here
+
+const int Amount = 255;
+int end = 0;
+
+Object* Storage[Amount] = { nullptr };
+Object* NameStorage[Amount] = { nullptr };
+
+void Store(Object* ToStore) {
+    Storage[end] = ToStore;
+    ToStore->PosInStorage = end;
+    end += 1;
+}
+
+Cube* CreateCube(char Name[99]) {
+    Cube* CubePointer = new(Cube);
+    Store(CubePointer);
+    return CubePointer;
+}
+Cube* CloneCube(Cube ToClone) {
+    Cube* CubePointer = new Cube(ToClone);
+    Store(CubePointer);
+    return CubePointer;
+}
+Pyramid* CreatePyramid(char Name[99]) {
+    Pyramid* PyramidPointer = new(Pyramid);
+    Store(PyramidPointer);
+    return PyramidPointer;
+}
+Pyramid* ClonePyramid(Pyramid ToClone) {
+    Pyramid* PyramidPointer = new Pyramid(ToClone);
+    Store(PyramidPointer);
+    return PyramidPointer;
+}
+
+
+
 class Chunk {
 public:
     CFrame Location;
@@ -435,8 +482,8 @@ public:
     int Size = 10;
 
     void AddToChunk(Object* ToStore) {
-        Storage[end] = ToStore;
-        ToStore->PosInStorage = end;
+        Storage[End] = ToStore;
+        ToStore->PosInStorage = End;
         ToStore->ChunkPtr = this;
         End += 1;
     }
