@@ -11,11 +11,13 @@ void MultMatrix(double(&Small)[3], double Big[3][3]) {
     Small[2] = temp[0] * Big[0][2] + temp[1] * Big[1][2] + temp[2] * Big[2][2];
 }
 
+//Turnes degree to radian
 double DegreeToRadian(double Degree) {
     double pi = 2 * acos(0.0);
     return Degree * pi / 180;
 }
 
+//Turns a string into an int for a hastable
 int StringToInt(char Name[99]) {
     printf("%d", Name[51]);
     return 0;
