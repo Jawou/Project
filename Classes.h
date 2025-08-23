@@ -10,10 +10,10 @@ class Chunk;
 class Vector3
 {
 public:
-    double X = 0;
-    double Y = 0;
-    double Z = 0;
-    double Magnitude = 0;
+    float X = 0;
+    float Y = 0;
+    float Z = 0;
+    float Magnitude = 0;
 
     void Add(Vector3 NewVector)
     {   
@@ -31,13 +31,13 @@ public:
         this->Z -= NewVector.Z;
         Update();
     }
-    void Mult(double Value) {
+    void Mult(float Value) {
         this->X *= Value;
         this->Y *= Value;
         this->Z *= Value;
         Update();
     }
-    void Div(double Value) {
+    void Div(float Value) {
         this->X /= Value;
         this->Y /= Value;
         this->Z /= Value;
@@ -46,7 +46,7 @@ public:
     void Update() {
         this->Magnitude = sqrt(X * X + Y * Y + Z * Z);
     }
-    Vector3(double NX, double NY, double NZ)
+    Vector3(float NX, float NY, float NZ)
     {
         this->X = NX;
         this->Y = NY;
@@ -64,21 +64,21 @@ public:
 class CFrame {
 public:
     //Postion
-    double X = 0, Y = 0, Z = 0;
+    float X = 0, Y = 0, Z = 0;
     //Vector 
     Vector3 Vector;
     //Euler Angles
-    double Alpha = 0;
-    double Beta = 0;
-    double Gamma = 0;
+    float Alpha = 0;
+    float Beta = 0;
+    float Gamma = 0;
     // Rotation Matrix
-    double RotationMatrix[3][3] = { 0 };
+    float RotationMatrix[3][3] = { 0 };
     //Deafult Constructor
     CFrame() {
         UpdateAll();
     }
     //Constructor without angles
-    CFrame(double NX, double NY, double NZ) {
+    CFrame(float NX, float NY, float NZ) {
         this->X = NX;
         this->Y = NY;
         this->Z = NZ;
@@ -86,7 +86,7 @@ public:
         UpdateAll();
     }
     //Constructor with Angles
-    CFrame(double NX, double NY, double NZ, double Alpha, double Beta, double Gamma) {
+    CFrame(float NX, float NY, float NZ, float Alpha, float Beta, float Gamma) {
         this->X = NX;
         this->Y = NY;
         this->Z = NZ;
@@ -121,11 +121,11 @@ public:
         
     //Turns the euler angles stored into a rotation matrix set in the Za Xb Yg formation
     void UpdateMatrix() {
-        double ca = cos(Alpha), sa = sin(Alpha);
-        double cb = cos(Beta), sb = sin(Beta);
-        double cy = cos(Gamma), sy = sin(Gamma);
+        float ca = cos(Alpha), sa = sin(Alpha);
+        float cb = cos(Beta), sb = sin(Beta);
+        float cy = cos(Gamma), sy = sin(Gamma);
 
-        double Temp[3][3] = {
+        float Temp[3][3] = {
             {ca * cy - sa * sb * sy,-cb * sa,ca * sy + cy * sa * sb},
             {cy * sa + ca * sb * sy,ca * cb,sa * sy - ca * cy * sb},
             {-cb * sy,sb,cb * cy}
@@ -190,12 +190,15 @@ class Object {
         CFrame AbsoluteVertices[99]; //stored compared to the world orign / CFrame
         CFrame AbsTriangles[99][3];
 
+        float GLVerticies[297];
+        int GLOrder[99];
+
         int NumberOfVerticies = 0;
         int NumberOfTriangles = 0;
 
         void ApplyRotation() {
             for (int i = 0; i < NumberOfVerticies; i++) {
-                double Small[3] = { RelativeVertices[i].X,RelativeVertices[i].Y,RelativeVertices[i].Z };
+                float Small[3] = { RelativeVertices[i].X,RelativeVertices[i].Y,RelativeVertices[i].Z };
                 MultMatrix(Small, Position.RotationMatrix);
                 RelativeVertices[i].X = Small[0];
                 RelativeVertices[i].Y = Small[1];
@@ -219,6 +222,7 @@ class Object {
         virtual void CreateRelVert() = 0;
         virtual void CreateRelTriangles() = 0;
         virtual void CreateAbsTriangles() = 0;
+        virtual void CreateOGL() = 0;
 };
 
 class Cube : public Object {
@@ -226,6 +230,19 @@ class Cube : public Object {
         Cube(){
             NumberOfVerticies = 8;
             NumberOfTriangles = 12;
+        }
+
+        void CreateOGL()override {
+            unsigned int Temp[] = {0,2,4,4,2,6,1,5,3,3,5,7,0,4,1,1,4,5,2,3,6,6,3,7,0,1,2,4,6,5,5,6,7};
+            for (size_t i = 0; i < sizeof(Temp); i++)
+            {
+                this->GLOrder[i] = Temp[i];
+                this->GLVerticies[i * 3] = RelativeVertices[Temp[i]].X;
+                this->GLVerticies[i * 3 + 1] = RelativeVertices[Temp[i]].Y;
+                this->GLVerticies[i * 3 + 2] = RelativeVertices[Temp[i]].Z;
+                printf("%d,%d,%d,%d \n", Temp[i], RelativeVertices[Temp[i]].X, RelativeVertices[Temp[i]].Y, RelativeVertices[Temp[i]].Z);
+            }
+         
         }
 
         void CreateRelVert()override {
@@ -270,7 +287,7 @@ class Cube : public Object {
             RelTriangles[6][0] = RelativeVertices[2];
             RelTriangles[6][1] = RelativeVertices[3];
             RelTriangles[6][2] = RelativeVertices[6];
-
+            
             RelTriangles[7][0] = RelativeVertices[6];
             RelTriangles[7][1] = RelativeVertices[3];
             RelTriangles[7][2] = RelativeVertices[7];
@@ -354,7 +371,9 @@ public:
         NumberOfVerticies = 5;
         NumberOfTriangles = 6;
     }
-
+    void CreateOGL()override {
+        printf("A");
+    }
     void CreateRelVert() override {
         this->RelativeVertices[0] = Vector3(Size.X / 2, -Size.Y / 2, Size.Z / 2); 
         this->RelativeVertices[1] = Vector3(Size.X / 2, -Size.Y / 2, -Size.Z / 2);
